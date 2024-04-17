@@ -13,9 +13,10 @@ import java.sql.SQLException;
  * @author user
  */
 public class connection {
-      private static final String URL = "jdbc:postgresql://localhost:5432/DB_pharmacy";
-        private static final String USER = "admin";
-        private static final String PASS = "admin";
+
+    private static final String URL = "jdbc:postgresql://localhost:5432/DB_Library";
+    private static final String USER = "admin";
+    private static final String PASS = "admin";
 
     public static Connection getConnection() {
         Connection connection = null;
