@@ -1,5 +1,6 @@
 package dao;
 
+
 import metier.Livres;
 
 public class TestDaoL {
@@ -7,7 +8,9 @@ public class TestDaoL {
 	public static void main(String[] args) {
 		LiverDaoImpl liv = new LiverDaoImpl();
 		Livres L2 = liv.save(new Livres("Les Misérables","Victor Hugo", 1862));
-		System.out.println(L2.toString());
+		Livres L3 = liv.save(new Livres("Le Petit Prince"," Antoine de Saint-Exupéry",1943));
+		
+		System.out.println(L3.toString());
      
 		
 		L2.setTitre("Le Parfum");

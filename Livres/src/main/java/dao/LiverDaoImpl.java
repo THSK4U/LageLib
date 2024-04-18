@@ -48,10 +48,29 @@ public class LiverDaoImpl implements LivreDao {
       
     }
 
-	@Override
-	public Livres save(Livres p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Livres save(Livres L) {
+         Connection connection = connectionJDBC.getConnection();
+         try {
+            PreparedStatement stmt = connection.prepareStatement(
+                        "INSERT INTO Livres (titre, lauteur, lannéepublication) VALUES (?, ?, ?)"
+                    );
+              stmt.setString(1, L.getTitre());
+              stmt.setString(2, L.getLauteur());
+              stmt.setInt(3, L.getLannéepublication());
+              stmt.executeUpdate();
+
+             PreparedStatement stmt2 = connection.prepareStatement("SELECT lastval() AS last_id");
+                ResultSet rs = stmt2.executeQuery();
+                if (rs.next()) {
+                     L.setId_livre(rs.getLong("last_id"));
+                }
+                stmt2.close();
+                stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return L;
+    }
 
 }

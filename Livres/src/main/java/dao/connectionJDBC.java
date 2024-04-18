@@ -7,9 +7,9 @@ public class connectionJDBC {
 	private static Connection connection;
 	static {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("org.postgresql.Driver");
 			 connection=DriverManager.getConnection
-					 ("jdbc:mysql://localhost:3306/gestion de bibliothèque","root","Ilham@2020");
+					 ("jdbc:postgresql://localhost:5432/DB_Library","postgres","264850");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
