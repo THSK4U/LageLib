@@ -3,17 +3,13 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class connectionJDBC {
+public class ConnactionBasma {
 	private static Connection connection;
 	static {
 		try {
-            Class.forName("org.postgresql.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			 connection=DriverManager.getConnection
-<<<<<<< HEAD
-					 ("jdbc:mysql://localhost:3306/gestion de bibliothèque","root","123.Niko");
-=======
-					 ("jdbc:postgresql://localhost:5432/DB_Library","postgres","264850");
->>>>>>> 4a085b08281f81d461d0d51616864158f4cc6e9f
+					 ("jdbc:mysql://localhost:3306/produitpharmacy","root","123.Niko");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -24,4 +20,5 @@ public class connectionJDBC {
 	public static Connection getConnection() {
 		return connection;
 	}
+
 }

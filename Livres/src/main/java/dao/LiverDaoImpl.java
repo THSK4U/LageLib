@@ -42,9 +42,31 @@ public class LiverDaoImpl implements LivreDao {
         }
         return updatedLivres;
     }
+    
+    
 
     @Override
-    public void deletLivres(Long id) {
+    public Livres deletLivres(int id) {
+    	Connection connection = connectionJDBC.getConnection();
+    	
+    	try {
+    		PreparedStatement ps = connection.prepareStatement(
+    				"DELETE FROM Livres WHERE id_livre=?"
+    				);
+    		ps.setLong(1, id);
+    		int rowsDeleted = ps.executeUpdate();
+    		 if (rowsDeleted > 0) {
+    	            System.out.println("The book with ID " + id + " was deleted successfully!");
+    	        } else {
+    	            System.out.println("The book with ID " + id + " was not found.");
+    	        }
+			
+    		ps.close();
+   
+    	}catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+		return null;
       
     }
 
@@ -59,6 +81,22 @@ public class LiverDaoImpl implements LivreDao {
               stmt.setString(2, L.getLauteur());
               stmt.setInt(3, L.getLannéepublication());
               stmt.executeUpdate();
+<<<<<<< HEAD
+
+             PreparedStatement stmt2 = connection.prepareStatement("SELECT LAST_INSERT_ID() AS last_id");
+                ResultSet rs = stmt2.executeQuery();
+                if (rs.next()) {
+                     L.setId_livre(rs.getLong("last_id"));
+                }
+                stmt2.close();
+                stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return L;
+    }
+=======
+>>>>>>> 4a085b08281f81d461d0d51616864158f4cc6e9f
 
              PreparedStatement stmt2 = connection.prepareStatement("SELECT lastval() AS last_id");
                 ResultSet rs = stmt2.executeQuery();
