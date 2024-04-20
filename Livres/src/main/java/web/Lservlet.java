@@ -3,50 +3,120 @@ package web;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import dao.ILiverdao;
 import dao.LivresDaoimpli;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import metier.livers;
 
+@WebServlet("/")
 public class Lservlet extends HttpServlet {
-
     private static final long serialVersionUID = 1L;
-    private ILiverdao metier;
+    private LivresDaoimpli livresDaoimpli;
 
-    @Override
-    public void init() throws ServletException {
-        metier = new LivresDaoimpli();
+    public Lservlet() {
+        this.livresDaoimpli = new LivresDaoimpli();
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    	
-        List<livers> list = metier.ALLlist();
+        process(request, response);
+    }
 
-        request.setAttribute("list", list);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        process(request, response);
+    }
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("Livres-list.jsp");
+    private void process(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getServletPath();
+        if (action == null) {
+            processRequest(request, response);
+        } else {
+            switch (action) {
+                case "/edit":
+                    processEdit(request, response);
+                    break;
+                case "/confirmation":
+                	Deletform(request, response);
+                    break;
+                case "/delete":
+                	processDelete(request, response);
+                    break;
+                case "/new":
+                    processNew(request, response);
+                    break;
+                case "/update":
+                    processUpdate(request, response);
+                    break;
+                case "/save" :
+                	processSave(request, response);
+                default:
+                    processRequest(request, response);
+                    break;
+            }
+        }
+    }
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<livers> livres = livresDaoimpli.ALLlist();
+        request.setAttribute("Livre", livres);
+        request.getRequestDispatcher("/WEB-INF/livres.jsp").forward(request, response);
+    }
+    private void Deletform(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Formdelet.jsp");
+        dispatcher.forward(request, response);
+    }
+    private void processDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+        livresDaoimpli.deletLivres(id);
+        response.sendRedirect(request.getContextPath() + "/");
+    }
+
+    private void processEdit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+        livers livr = livresDaoimpli.getLivres(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/edit.jsp");
+        request.setAttribute("Livre", livr);
+        dispatcher.forward(request, response);
+    }
+    
+    private void processSave(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String titre = request.getParameter("titre");
+        String lauteur = request.getParameter("lauteur");
+        int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
+
+        livers livr = new livers(titre, lauteur, lannéepublication);
+        livresDaoimpli.save(livr);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/");
+        dispatcher.forward(request, response);    }
+    
+    private void processNew(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/new.jsp");
         dispatcher.forward(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    private void processUpdate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id_livre = Integer.parseInt(request.getParameter("id"));
-        String titre = request.getParameter("title");
-        String lauteur = request.getParameter("author");
-        int lannéepublication = Integer.parseInt(request.getParameter("publicationYear"));
+		int id = Integer.parseInt(request.getParameter("id"));
+        String titre = request.getParameter("titre");
+        String lauteur = request.getParameter("lauteur");
+        int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
 
-        livers livre = new livers(id_livre, titre, lauteur, lannéepublication);
+        livers livr = new livers(id, titre, lauteur, lannéepublication);
+        livresDaoimpli.update(livr);
 
-        metier.update(livre);
-
-        response.sendRedirect(request.getContextPath() + "/Lservlet");
+        response.sendRedirect(request.getContextPath() + "/");
     }
 }

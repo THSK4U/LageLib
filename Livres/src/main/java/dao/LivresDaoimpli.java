@@ -8,6 +8,8 @@ import metier.livers;
 
 public class LivresDaoimpli implements ILiverdao{
 
+	
+	//select All
 	@Override
 	public List<livers> ALLlist() {
 		List<livers> list = new ArrayList<>();
@@ -28,7 +30,6 @@ public class LivresDaoimpli implements ILiverdao{
 					
 					
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -37,6 +38,7 @@ public class LivresDaoimpli implements ILiverdao{
 	}
 	
 
+	//select by id
     @Override
     public livers getLivres(long id) {
     	Connection connection = SConnection.getConnection();
@@ -59,6 +61,8 @@ public class LivresDaoimpli implements ILiverdao{
         return livre;
     }
     
+    
+    //update
     @Override
     public livers update(livers p) {
     	Connection connection = SConnection.getConnection();
@@ -84,6 +88,8 @@ public class LivresDaoimpli implements ILiverdao{
         return updatedLivres;
     }
 
+    
+    //delete
     @Override
     public livers deletLivres(long id) {
     	Connection connection = SConnection.getConnection();
@@ -108,6 +114,8 @@ public class LivresDaoimpli implements ILiverdao{
 		return null;
     }
 
+    
+    //insert
 	@Override
 	public livers save(livers p) {
     	Connection connection = SConnection.getConnection();

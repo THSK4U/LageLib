@@ -1,15 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="https://jakarta.ee/xml/ns/jakartaee"
-	xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-	id="WebApp_ID" version="6.0">
-	<display-name>gsd</display-name>
-	<servlet>
-	<servlet-name>cs</servlet-name>
-	<servlet-class>web.Lservlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	<servlet-name>cs</servlet-name>
-	<url-pattern>*.jsp</url-pattern>
-	</servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
+  <servlet>
+    <servlet-name>Lservlet</servlet-name>
+    <servlet-class>Lservlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Lservlet</servlet-name>
+    <url-pattern>/Lservlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>testservlat</display-name>
+    <servlet-name>testservlat</servlet-name>
+    <servlet-class>web.testservlat</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>testservlat</servlet-name>
+    <url-pattern>/testservlat</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LivresServlet</display-name>
+    <servlet-name>LivresServlet</servlet-name>
+    <servlet-class>servlets.LivresServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LivresServlet</servlet-name>
+    <url-pattern>/LivresServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

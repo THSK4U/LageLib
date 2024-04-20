@@ -15,8 +15,6 @@ public class testdeo {
 			System.out.println(liv.toString());
 			}
 		
-		livers L2 = list.getFirst();
-		System.out.println(L2.toString());
      
 		/*
 		 * L2.setTitre("Le parfum"); L2.setLauteur(" Patrick Süskind");
@@ -30,8 +28,8 @@ public class testdeo {
 		 * livers L4 = deo.save(new
 		 * livers("Le Petit Prince"," Antoine de Saint-Exupéry",1943));
 		 */
-        livers L5 = deo.deletLivres(44);
-		System.out.println(L5.toString());
+		/* livers L5 = deo.deletLivres(44); */
+		/* System.out.println(L5.toString()); */
 	}
 
 }
