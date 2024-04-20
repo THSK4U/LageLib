@@ -15,8 +15,8 @@ public class MembreDaoImpl implements MembreDao {
 	public List<Membre> selectAllMembres(){
 		List<Membre> Membres = new ArrayList<>();
 		try(Connection connection = Connection_JDBC.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement("select * from Membres");){
-			    System.out.println(preparedStatement);
+				PreparedStatement preparedStatement = connection.prepareStatement("select * from Membres")
+						){
 			    ResultSet rs = preparedStatement.executeQuery();
 			    
 			    while(rs.next()) {

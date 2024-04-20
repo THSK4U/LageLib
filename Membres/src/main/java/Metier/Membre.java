@@ -61,6 +61,12 @@ public class Membre {
 	public void setNumérotéléphone(int numérotéléphone) {
 		this.numérotéléphone = numérotéléphone;
 	}
+
+	@Override
+	public String toString() {
+		return "Membre [id_membre=" + id_membre + ", nom_mb=" + nom_mb + ", ladresse=" + ladresse + ", numérotéléphone="
+				+ numérotéléphone + "]";
+	}
 	
 	
 }
