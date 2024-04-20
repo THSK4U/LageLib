@@ -1,7 +1,7 @@
 package Metier;
 
 public class Membre {
-	private int id_membre;
+	private Long id_membre;
     private String nom_mb;
     private String ladresse;
     private int numérotéléphone;
@@ -12,9 +12,8 @@ public class Membre {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Membre(int id_membre, String nom_mb, String ladresse, int numérotéléphone) {
+	public Membre(String nom_mb, String ladresse, int numérotéléphone) {
 		super();
-		this.id_membre = id_membre;
 		this.nom_mb = nom_mb;
 		this.ladresse = ladresse;
 		this.numérotéléphone = numérotéléphone;
@@ -23,12 +22,20 @@ public class Membre {
 
 
 
-	public int getId_membre() {
+	public Membre(Long id_membre, String nom_mb, String ladresse, int numérotéléphone) {
+		super();
+		this.id_membre = id_membre;
+		this.nom_mb = nom_mb;
+		this.ladresse = ladresse;
+		this.numérotéléphone = numérotéléphone;
+	}
+
+	public Long getId_membre() {
 		return id_membre;
 	}
 
 
-	public void setId_membre(int id_membre) {
+	public void setId_membre(Long id_membre) {
 		this.id_membre = id_membre;
 	}
 

@@ -14,13 +14,13 @@ public class MembreDaoImpl implements MembreDao {
 	//SELECT ALL users
 	public List<Membre> selectAllMembres(){
 		List<Membre> Membres = new ArrayList<>();
-		try(Connection connection = Connection_JDBC.getConnection();
-				PreparedStatement preparedStatement = connection.prepareStatement("select * from Membres")
-						){
+		Connection connection = Connection_JDBC.getConnection();
+		try {
+				PreparedStatement preparedStatement = connection.prepareStatement("select * from Membres");
 			    ResultSet rs = preparedStatement.executeQuery();
 			    
 			    while(rs.next()) {
-			    	int id_membre = rs.getInt("id_membre");
+			    	long id_membre = rs.getLong("id_membre");
 			    	String nom_mb = rs.getString("nom_mb");
 			    	String ladresse = rs.getString("ladresse");
 			    	int numérotéléphone = rs.getInt("numérotéléphone");
@@ -35,9 +35,28 @@ public class MembreDaoImpl implements MembreDao {
 
 	@Override
 	public Membre save(Membre M) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = Connection_JDBC.getConnection();
+	    try {
+	         PreparedStatement PreSt = connection.prepareStatement(
+	        		 " INSERT INTO Membres (nom_mb, ladresse, numérotéléphone) VALUES (?,?, ?)");
+	        
+	        PreSt.setString(1, M.getNom_mb());
+	        PreSt.setString(2, M.getLadresse());
+	        PreSt.setInt(3, M.getNumérotéléphone());
+	        PreSt.executeUpdate();
+	        PreparedStatement PreSt2 = connection.prepareStatement("SELECT LAST_INSERT_ID() AS last_id");
+	        ResultSet rs = PreSt2.executeQuery();
+	        if (rs.next()) {
+	            M.setId_membre(rs.getLong("last_id"));
+	        }
+	        PreSt2.close();
+	        PreSt.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return M;
 	}
+
 
 	@Override
 	public Membre getMembre(int id) {

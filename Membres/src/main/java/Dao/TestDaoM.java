@@ -10,11 +10,14 @@ public class TestDaoM {
 
 		MembreDaoImpl mebDao = new MembreDaoImpl();
 
-        List<Membre> list = mebDao.selectAllMembres();
-
-        for(Membre liv: list) {
-            System.out.println(liv.toString());
-            }
+		
+		  List<Membre> list = mebDao.selectAllMembres();
+		  
+		  for(Membre Meb: list) { System.out.println(Meb.toString()); }
+		 
+		//add Member
+	        Membre M2 = mebDao.save(new Membre("foaa ahbala","39  Mohamadia", 623981032));
+			System.out.println(M2.toString());
 	}
 
 }
