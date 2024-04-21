@@ -92,27 +92,33 @@ public class LivresDaoimpli implements ILiverdao{
     //delete
     @Override
     public livers deletLivres(long id) {
-    	Connection connection = SConnection.getConnection();
+        Connection connection = SConnection.getConnection();
 
-    	try {
-    		PreparedStatement ps = connection.prepareStatement(
-    				"DELETE FROM Livres WHERE id_livre=?"
-    				);
-    		ps.setLong(1, id);
-    		int rowsDeleted = ps.executeUpdate();
-    		 if (rowsDeleted > 0) {
-    	            System.out.println("The book with ID " + id + " was deleted successfully!");
-    	        } else {
-    	            System.out.println("The book with ID " + id + " was not found.");
-    	        }
-			
-    		ps.close();
-   
-    	}catch (SQLException e) {
-    		e.printStackTrace();
-    	}
-		return null;
+        try {
+            PreparedStatement psDelete = connection.prepareStatement(
+                    "DELETE FROM Livres WHERE id_livre=?"
+            );
+            psDelete.setLong(1, id);
+            int rowsDeleted = psDelete.executeUpdate();
+            psDelete.close();
+
+            if (rowsDeleted > 0) {
+                PreparedStatement psUpdate = connection.prepareStatement(
+                        "UPDATE Livres SET id_livre = id_livre - 1 WHERE id_livre > ?"
+                );
+                psUpdate.setLong(1, id);
+                psUpdate.executeUpdate();
+                psUpdate.close();
+            } else {
+                System.out.println("The book with ID " + id + " was not found.");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
+
 
     
     //insert
