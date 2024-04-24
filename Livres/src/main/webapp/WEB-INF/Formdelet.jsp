@@ -23,7 +23,7 @@
             font-weight: bold;
         }
         h1{
-                    font-weight: bold;
+         font-weight: bold;
         
         }
         
@@ -31,8 +31,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>Delete Livre</h1>
-        <p>Are you sure you want to delete this livre?</p>
+        <h1>Supprimer Livre</h1>
+        <p>Êtes-vous sûr de vouloir supprimer ce livre?</p>
         <% String idParam = request.getParameter("id"); %>
     <% if (idParam != null && !idParam.isEmpty()) { %>
         <% int id = Integer.parseInt(idParam); %>
@@ -44,8 +44,8 @@
      <input type="hidden" name="id" value="<%= livre.getId_livre() %>">
      <label><%= livre.getTitre() %> - <%= livre.getLauteur() %> - <%= livre.getLannéepublication() %></label>
             </div>
-      <button type="submit" class="btn btn-danger">Yes, Delete</button>
-            <a href="/gsd/" class="btn btn-secondary">Cancel</a>
+      <button type="submit" class="btn btn-danger">Oui, Supprimer</button>
+            <a href="/gsd/" class="btn btn-secondary">Annuler</a>
             <% } else { %>
             <p>Aucun Livre.</p>
         <% } %>

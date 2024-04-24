@@ -23,7 +23,7 @@ public class Lservlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        process(request, response);
+    	doPost(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -68,11 +68,15 @@ public class Lservlet extends HttpServlet {
         request.setAttribute("Livre", livres);
         request.getRequestDispatcher("/WEB-INF/livres.jsp").forward(request, response);
     }
+    
+    
     private void Deletform(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Formdelet.jsp");
         dispatcher.forward(request, response);
     }
+    
+    
     private void processDelete(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -84,29 +88,34 @@ public class Lservlet extends HttpServlet {
             throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
         livers livr = livresDaoimpli.getLivres(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/edit.jsp");
         request.setAttribute("Livre", livr);
+      request.getRequestDispatcher("/WEB-INF/edit.jsp").forward(request, response);
+
+    }
+    
+      private void processNew(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/new.jsp");
         dispatcher.forward(request, response);
     }
     
+      
     private void processSave(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String titre = request.getParameter("titre");
         String lauteur = request.getParameter("lauteur");
         int lannéepublication = Integer.parseInt(request.getParameter("lannéepublication"));
 
         livers livr = new livers(titre, lauteur, lannéepublication);
+        
         livresDaoimpli.save(livr);
-
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/");
-        dispatcher.forward(request, response);    }
+        response.sendRedirect(request.getContextPath() + "/");
+   
+        }
     
-    private void processNew(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/new.jsp");
-        dispatcher.forward(request, response);
-    }
 
+    
     private void processUpdate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));

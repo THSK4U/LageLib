@@ -36,19 +36,19 @@
         <% LivresDaoimpli dao = new LivresDaoimpli(); %>
         <% livers livre = dao.getLivres(id); %>
         <% if (livre != null) { %>
-            <form action="action" method="post">
+            <form action="update" method="post">
                 <input type="hidden" name="id" value="<%= livre.getId_livre() %>">
                 <div class="form-group">
                     <label>Titre:</label>
-                    <input type="text" class="form-control" name="Titre" value="<%= livre.getTitre() %>">
+                    <input type="text" class="form-control" name="titre" value="<%= livre.getTitre() %>">
                 </div>
                 <div class="form-group">
                     <label>L'auteur:</label>
-                    <input type="text" class="form-control" name="auteur" value="<%= livre.getLauteur() %>">
+                    <input type="text" class="form-control" name="lauteur" value="<%= livre.getLauteur() %>">
                 </div>
                 <div class="form-group">
                     <label>L'année de publication:</label>
-                    <input type="text" class="form-control" name="annéedepublication" value="<%= livre.getLannéepublication() %>">
+                    <input type="text" class="form-control" name="lannéepublication" value="<%= livre.getLannéepublication() %>">
                 </div>
                 <button type="submit" class="btn btn-dark">Save</button>
             </form>

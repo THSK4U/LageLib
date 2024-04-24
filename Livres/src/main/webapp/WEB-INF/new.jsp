@@ -30,15 +30,15 @@
         <form action="save" method="post">
             <div class="form-group">
                 <label >Titre:</label>
-                <input type="text" class="form-control" id="Titre" name="Titre">
+                <input type="text" class="form-control" id="titre" name="titre">
             </div>
             <div class="form-group">
                 <label >L'auteur:</label>
-                <input type="text" class="form-control" id="auteur:" name="auteur">
+                <input type="text" class="form-control" id="lauteur" name="lauteur">
             </div>
             <div class="form-group">
                 <label >L'année de publication:</label>
-                <input type="number" class="form-control" id="annéedepublication" name="année de publication">
+                <input type="number" class="form-control" id="lannéepublication" name="lannéepublication">
             </div>
             <button type="submit" class="btn btn-dark">Save</button>
         </form>
